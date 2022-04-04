@@ -34,6 +34,7 @@
   "type": "module",
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "lodash": "^4.17.21",
     "svelte-fa": "^2.4.0"
   }
 }
