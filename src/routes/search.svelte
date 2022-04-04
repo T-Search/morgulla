@@ -11,16 +11,16 @@
 	}, 300);
 </script>
 
-<div class="flex justify-center gap-1 pt-3">
+<div class="flex pt-3 justify-center w-full">
 	<input
 		type="search"
-		class="w-9/12 max-w-lg text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700"
-		placeholder="Nurse"
-		autofocus
+		class="rounded-none w-9/12 max-w-lg rounded-l-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+		placeholder="Bonnie Green"
 		on:input={handleInput}
 	/>
 	<button
-		class="flex-none px-4 py-2 font-semibold text-sm bg-cyan-800 text-slate-400 rounded-full shadow-sm"
+		type="button"
+		class="inline-flex items-center px-3 rounded-r-md border-l-0 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
 		><Fa icon={faMagnifyingGlass} /></button
 	>
 </div>
