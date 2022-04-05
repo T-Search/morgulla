@@ -1,7 +1,11 @@
+<script context="module">
+import { browser } from '$app/env';
+
+export let locale = browser && (window.navigator.userLanguage || window.navigator.language);
+</script>
+
 <script>
-	import { browser } from '$app/env';
 	import Fa from 'svelte-fa';
-	import moment from 'moment';
 	import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 	import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
 	import { faFingerprint } from '@fortawesome/free-solid-svg-icons/faFingerprint';
@@ -21,13 +25,9 @@
 	export let videoId;
 	export let views;
 
-	let clipDateFormatted = '';
-
-	if (browser) {
-		let locale = window.navigator.userLanguage || window.navigator.language;
-		clipDateFormatted = moment(clipDateString).locale(locale).format('LTS l');
-		console.log(locale);
-	}
+	const date = new Date(clipDateString);
+	
+	const clipDateFormatted = date.toLocaleDateString(locale);
 </script>
 
 <a
