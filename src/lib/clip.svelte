@@ -1,7 +1,16 @@
 <script context="module">
 import { browser } from '$app/env';
 
-export let locale = browser && (window.navigator.userLanguage || window.navigator.language);
+export const dateStringOptions = { 
+	hour: "2-digit", 
+	minute: "2-digit", 
+	second: "2-digit", 
+	year: '2-digit', 
+	month: '2-digit', 
+	day: '2-digit' 
+}
+
+export const locale = browser && (window.navigator.userLanguage || window.navigator.language);
 </script>
 
 <script>
@@ -26,8 +35,8 @@ export let locale = browser && (window.navigator.userLanguage || window.navigato
 	export let views;
 
 	const date = new Date(clipDateString);
-	
-	const clipDateFormatted = date.toLocaleDateString(locale);
+
+	const clipDateFormatted = date.toLocaleDateString(locale, dateStringOptions);
 </script>
 
 <a
