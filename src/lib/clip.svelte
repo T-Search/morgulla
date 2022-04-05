@@ -1,17 +1,15 @@
 <script>
+	import { browser } from '$app/env';
 	import Fa from 'svelte-fa';
 	import moment from 'moment';
-	import {
-faAirFreshener,
-		faCalendarDays,
-		faEye,
-		faFingerprint,
-		faGamepad,
-		faSignal,
-		faTv,
-		faUser,
-		faUserGear
-	} from '@fortawesome/free-solid-svg-icons';
+	import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
+	import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
+	import { faFingerprint } from '@fortawesome/free-solid-svg-icons/faFingerprint';
+	import { faGamepad } from '@fortawesome/free-solid-svg-icons/faGamepad';
+	import { faSignal } from '@fortawesome/free-solid-svg-icons/faSignal';
+	import { faTv } from '@fortawesome/free-solid-svg-icons/faTv';
+	import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
+	import { faUserGear } from '@fortawesome/free-solid-svg-icons/faUserGear';
 
 	export let id;
 	export let title;
@@ -22,6 +20,14 @@ faAirFreshener,
 	export let thumbnailUrl;
 	export let videoId;
 	export let views;
+
+	let clipDateFormatted = '';
+
+	if (browser) {
+		let locale = window.navigator.userLanguage || window.navigator.language;
+		clipDateFormatted = moment(clipDateString).locale(locale).format('LTS l');
+		console.log(locale);
+	}
 </script>
 
 <a
@@ -31,19 +37,21 @@ faAirFreshener,
 >
 	<img
 		class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg aspect-video"
-		src="{thumbnailUrl.replaceAll("-480x272", "")}"
+		src={thumbnailUrl.replaceAll('-480x272', '')}
 		alt="Clip Thumbnail"
 	/>
 	<div class="flex flex-col justify-between p-4 leading-normal">
 		<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
-		<div class="mb-3 font-normal text-gray-700 dark:text-gray-400 grid grid-cols-1 md:grid-cols-2 grid-flow-row">
+		<div
+			class="mb-3 font-normal text-gray-700 dark:text-gray-400 grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-x-4"
+		>
 			<div class="md:col-span-2">
 				<Fa icon={faFingerprint} class="inline" />
 				{id}
 			</div>
 			<div>
 				<Fa icon={faCalendarDays} class="inline" />
-				{moment(clipDateString).format('LTS l')}
+				{clipDateFormatted}
 			</div>
 			<div>
 				<Fa icon={faGamepad} class="inline" />

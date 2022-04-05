@@ -1,7 +1,7 @@
 <script>
 	import Fa from 'svelte-fa';
-	import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-	import debounce from 'lodash/debounce';
+	import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
+	import debounce from 'lodash/debounce.js';
 	import Clip from '$lib/clip.svelte';
 
 	let q = '';
