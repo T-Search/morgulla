@@ -5,30 +5,36 @@
 	import Clip from '$lib/clip.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { browser } from "$app/env";
 
 	console.log()
 
-	let q = "";
+	let q = '';
 	let broadcaster = "";
 	let clips = [];
 	let foundBroadcaster = false;
 
 	let possibleBroadcaster = [];
 
-	const __API_URL__ = "http://192.168.1.5:8080";
+	const __API_URL__ = "https://alpha.tsearch.tools/api/datava/";
 
 	onMount(async () => {
-		loadData();
-
+		q = localStorage.getItem('q') || '';
+		broadcaster = localStorage.getItem('broadcaster') || '';
 		//Load broadcaster
 		const res = await fetch(__API_URL__ + '/broadcaster/all');
 		const data = await res.json();
 		possibleBroadcaster = data.map((name) => name.toLowerCase());
 		checkBroadcaster();
+		loadData();
 	});
 
 	async function loadData() {
 		if (foundBroadcaster) {
+			if(browser) {
+				localStorage.setItem('q', q);
+				localStorage.setItem('broadcaster', broadcaster);
+			}
 			var url = new URL(__API_URL__ + '/clip/search');
 			var params = { broadcaster: broadcaster, q: q, pageNumber: 0, pageSize: 20 };
 			url.search = new URLSearchParams(params).toString();
@@ -80,6 +86,7 @@
 		type="search"
 		class="w-9/12 max-w-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 		placeholder="Bonnie Green"
+		value="{q}"
 		on:input={handleSearchInput}
 	/>
 	<button
