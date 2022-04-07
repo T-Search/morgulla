@@ -1,6 +1,7 @@
 <script>
 	import Fa from 'svelte-fa';
 	import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
+	import { faRotate } from '@fortawesome/free-solid-svg-icons/faRotate';
 	import debounce from 'lodash/debounce.js';
 	import Clip from '$lib/clip.svelte';
 	import { onMount } from 'svelte';
@@ -91,8 +92,14 @@
 	/>
 	<button
 		type="button"
-		class="inline-flex items-center px-3 rounded-r-md border-l-0 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+		class="inline-flex items-center px-3 border-l-0 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
 		><Fa icon={faMagnifyingGlass} /></button
+	>
+		<button
+		type="button"
+		class="inline-flex items-center px-3 rounded-r-md border-l-0 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+		on:click="{loadData}"
+		><Fa icon={faRotate} /></button
 	>
 </div>
 <div class="flex flex-col flex-wrap content-center gap-2 pt-3 pb-3">
