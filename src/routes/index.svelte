@@ -3,6 +3,6 @@
 	import { goto } from '$app/navigation';
 
 	if (browser) {
-		goto('/search');
+		goto('/clips');
 	}
 </script>
