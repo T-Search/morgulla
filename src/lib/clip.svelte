@@ -1,16 +1,16 @@
 <script context="module">
-import { browser } from '$app/env';
+	import { browser } from '$app/env';
 
-export const dateStringOptions = { 
-	hour: "2-digit", 
-	minute: "2-digit", 
-	second: "2-digit", 
-	year: '2-digit', 
-	month: '2-digit', 
-	day: '2-digit' 
-}
+	export const dateStringOptions = {
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit',
+		year: '2-digit',
+		month: '2-digit',
+		day: '2-digit'
+	};
 
-export const locale = browser && (window.navigator.userLanguage || window.navigator.language);
+	export const locale = browser && (window.navigator.userLanguage || window.navigator.language);
 </script>
 
 <script>
@@ -34,9 +34,11 @@ export const locale = browser && (window.navigator.userLanguage || window.naviga
 	export let videoId;
 	export let views;
 
-	const date = new Date(clipDateString);
+	$: {
+		clipDateFormatted = new Date(clipDateString).toLocaleDateString(locale, dateStringOptions);
+	}
 
-	const clipDateFormatted = date.toLocaleDateString(locale, dateStringOptions);
+	let clipDateFormatted;
 </script>
 
 <a
@@ -46,7 +48,7 @@ export const locale = browser && (window.navigator.userLanguage || window.naviga
 >
 	<img
 		class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg aspect-video"
-		src={thumbnailUrl.replaceAll('-480x272', '')}
+		src={thumbnailUrl}
 		alt="Clip Thumbnail"
 	/>
 	<div class="flex flex-col justify-between p-4 leading-normal">
