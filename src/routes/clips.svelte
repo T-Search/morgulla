@@ -10,18 +10,14 @@
 	import { baseApi } from '$lib/baseApi';
 
 	const pageSize = 20;
-	const emptyMeta = { currentElements: 0, currentPage: 0, totalElements: 0, totalPages: 0 };
+	const emptyMeta = { currentElements: 0, currentPage: 0, totalElements: 0, totalPages: 0, content: [] };
 	
 	let q = '';
 	let broadcaster = '';
-	let clips = [];
 	let meta = emptyMeta;
 	let foundBroadcaster = false;
 	let loading = true;
 	let pageNumber = 0;
-
-	//TODO Variablen Größe anpassen (Meta und Clips halten die gleichen Elemente)
-	//Console log entfernen
 
 	let possibleBroadcaster = [];
 
@@ -49,12 +45,9 @@
 
 			const res = await fetch(url);
 			const data = await res.json();
-			clips = data['content'];
 			meta = data;
-			console.log(meta);
 			loading = false;
 		} else {
-			clips = [];
 			meta = emptyMeta;
 			loading = false;
 		}
@@ -125,7 +118,7 @@
 	>
 </div>
 <div class="flex flex-col flex-wrap content-center gap-2 pt-3 pb-3">
-	{#each clips as clip}
+	{#each (meta.content) as clip}
 		<div class="max-w-3xl">
 			<Clip
 				id={clip.id}
