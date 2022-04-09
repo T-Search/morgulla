@@ -12,8 +12,11 @@
 	let q = '';
 	let broadcaster = '';
 	let clips = [];
+	let meta = { currentElements: 0, currentPage: 0, totalElements: 0, totalPages: 0 };
 	let foundBroadcaster = false;
 	let loading = true;
+	let pageNumber = 0;
+	const pageSize = 20;
 
 	let possibleBroadcaster = [];
 
@@ -36,12 +39,14 @@
 				localStorage.setItem('broadcaster', broadcaster);
 			}
 			var url = new URL(baseApi + '/clip/search');
-			var params = { broadcaster: broadcaster, q: q, pageNumber: 0, pageSize: 20 };
+			var params = { broadcaster: broadcaster, q: q, pageNumber: pageNumber, pageSize: pageSize };
 			url.search = new URLSearchParams(params).toString();
 
 			const res = await fetch(url);
 			const data = await res.json();
 			clips = data['content'];
+			meta = data;
+			console.log(meta);
 			loading = false;
 		} else {
 			clips = [];
@@ -59,15 +64,31 @@
 
 	const handleSearchInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		q = e.target.value;
+		pageNumber = 0;
 		checkBroadcaster();
 		loadData();
 	}, 200);
 
 	const handleBroadcasterInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		broadcaster = e.target.value;
+		pageNumber = 0;
 		checkBroadcaster();
 		loadData();
 	}, 100);
+
+	function incrementPageNumber() {
+		if (meta.totalPages - 1 > pageNumber) {
+			pageNumber += 1;
+			loadData();
+		}
+	}
+
+	function decrementPageNumber() {
+		if (0 < pageNumber) {
+			pageNumber -= 1;
+			loadData();
+		}
+	}
 </script>
 
 <svelte:head>
@@ -94,7 +115,7 @@
 	<button
 		type="button"
 		class="inline-flex items-center px-3 rounded-r-md border-l-0 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-		on:click={loadData}><Fa icon={faRotate} class="{loading ? 'animate-spin' : ''}" /></button
+		on:click={loadData}><Fa icon={faRotate} class={loading ? 'animate-spin' : ''} /></button
 	>
 </div>
 <div class="flex flex-col flex-wrap content-center gap-2 pt-3 pb-3">
@@ -113,4 +134,32 @@
 			/>
 		</div>
 	{/each}
+</div>
+<div class="flex flex-col items-center pb-3">
+	<!-- Help text -->
+	<span class="text-sm text-gray-700 dark:text-gray-400">
+		Showing <span class="font-semibold text-gray-900 dark:text-white"
+			>{Math.min(meta.currentPage * pageSize + 1, meta.totalElements)}</span
+		>
+		to
+		<span class="font-semibold text-gray-900 dark:text-white"
+			>{Math.min((1 + meta.currentPage) * pageSize, meta.totalElements)}</span
+		>
+		of <span class="font-semibold text-gray-900 dark:text-white">{meta.totalElements}</span> Entries
+	</span>
+	<!-- Buttons -->
+	<div class="inline-flex mt-2 xs:mt-0">
+		<button
+			class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+			on:click={decrementPageNumber}
+		>
+			Prev
+		</button>
+		<button
+			class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-r border-0 border-l border-gray-700 hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+			on:click={incrementPageNumber}
+		>
+			Next
+		</button>
+	</div>
 </div>
