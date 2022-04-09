@@ -61,13 +61,13 @@
 		q = e.target.value;
 		checkBroadcaster();
 		loadData();
-	}, 300);
+	}, 200);
 
 	const handleBroadcasterInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		broadcaster = e.target.value;
 		checkBroadcaster();
 		loadData();
-	}, 300);
+	}, 100);
 </script>
 
 <svelte:head>
