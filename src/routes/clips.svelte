@@ -9,14 +9,19 @@
 	import { browser } from '$app/env';
 	import { baseApi } from '$lib/baseApi';
 
+	const pageSize = 20;
+	const emptyMeta = { currentElements: 0, currentPage: 0, totalElements: 0, totalPages: 0 };
+	
 	let q = '';
 	let broadcaster = '';
 	let clips = [];
-	let meta = { currentElements: 0, currentPage: 0, totalElements: 0, totalPages: 0 };
+	let meta = emptyMeta;
 	let foundBroadcaster = false;
 	let loading = true;
 	let pageNumber = 0;
-	const pageSize = 20;
+
+	//TODO Variablen Größe anpassen (Meta und Clips halten die gleichen Elemente)
+	//Console log entfernen
 
 	let possibleBroadcaster = [];
 
@@ -50,6 +55,7 @@
 			loading = false;
 		} else {
 			clips = [];
+			meta = emptyMeta;
 			loading = false;
 		}
 	}
