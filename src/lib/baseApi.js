@@ -1,3 +1,1 @@
-export const baseApi = import.meta.env.PROD
-	? 'https://alpha.tsearch.tools/api/datava'
-	: 'http://localhost:8080';
+export const baseApi = import.meta.env.VITE_API_BASE_URL;
