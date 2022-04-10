@@ -1,5 +1,7 @@
 <script>
 	import { page } from '$app/stores';
+		import Fa from 'svelte-fa';
+	import { faTwitch } from '@fortawesome/free-brands-svg-icons/faTwitch';
 
   $: activePageName = $page.routeId;
 </script>
@@ -44,7 +46,7 @@
 			>
 		</button>
 		<div class="hidden w-full md:block md:w-auto" id="mobile-menu">
-			<ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+			<ul class="flex flex-col items-center mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
 				<li>
 					<a
 						href="clips"
@@ -60,6 +62,11 @@
             {activePageName == "highlights" ? 'text-gray-200 dark:text-gray-600' : 'text-gray-700 dark:text-gray-400'}"
 						>Highlights</a
 					>
+				</li>
+				<li>
+					<a href="#" class="text-white bg-[#9147FF] hover:bg-[#9147FF]/90 focus:ring-4 focus:outline-none focus:ring-[#9147FF]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#9147FF]/50 dark:hover:bg-[#9147FF]/30">
+						<Fa icon={faTwitch} class="inline mr-2" />Sign in with Twitch
+					</a>
 				</li>
 			</ul>
 		</div>
