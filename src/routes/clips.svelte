@@ -65,13 +65,13 @@
 	const handleSearchInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		q = e.target.value;
 		pageNumber = 0;
-		checkBroadcaster();
 		loadData();
 	}, 200);
 
 	const handleBroadcasterInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		broadcaster = e.target.value;
 		pageNumber = 0;
+		checkBroadcaster();
 		loadData();
 	}, 100);
 
