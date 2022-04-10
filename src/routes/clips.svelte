@@ -38,7 +38,9 @@
 			if (browser) {
 				localStorage.setItem('q', q);
 				localStorage.setItem('broadcaster', broadcaster);
-				umami.trackEvent('Get Clips', 'load');
+				if(typeof umami !== 'undefined') {
+					umami.trackEvent('Get Clips', 'load');
+				}
 			}
 			var url = new URL(baseApi + '/clip/search');
 			var params = { broadcaster: broadcaster, q: q, pageNumber: pageNumber, pageSize: pageSize };
