@@ -96,7 +96,7 @@
 	<title>Clip Suche</title>
 </svelte:head>
 
-<div class="flex pt-3 justify-center w-full">
+<div class="flex justify-center w-full">
 	<input
 		type="search"
 		class="w-1/6 max-w-xs rounded-l-lg bg-gray-50 border block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:placeholder-gray-400 {foundBroadcaster
@@ -142,7 +142,7 @@
 		</div>
 	{/each}
 </div>
-<div class="flex flex-col items-center pb-3">
+<div class="flex flex-col items-center">
 	<!-- Help text -->
 	<span class="text-sm text-gray-700 dark:text-gray-400">
 		Showing <span class="font-semibold text-gray-900 dark:text-white"

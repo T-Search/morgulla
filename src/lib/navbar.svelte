@@ -6,7 +6,7 @@
   $: activePageName = $page.routeId;
 </script>
 
-<nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+<nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800 mb-3">
 	<div class="container flex flex-wrap justify-between items-center mx-auto">
 		<div class="flex items-center">
 			<img src="/tsearch_64.svg" class="mr-3 h-6 sm:h-9" alt="T-Search Logo" />
