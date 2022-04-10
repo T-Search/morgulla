@@ -100,8 +100,8 @@
 	<input
 		type="search"
 		class="w-1/6 max-w-xs rounded-l-lg bg-gray-50 border block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:placeholder-gray-400 {foundBroadcaster
-			? 'border-green-500 dark:border-green-400 focus:ring-green-500 text-green-500'
-			: 'border-red-500 dark:border-red-400 focus:ring-red-500 text-red-500'}"
+			? 'border-green-500 text-green-900 focus:ring-green-500 focus:border-green-500 dark:bg-green-100 dark:border-green-400'
+			: 'border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500 dark:bg-red-100 dark:border-red-400'}"
 		placeholder="Broadcaster"
 		value={broadcaster}
 		on:input={handleBroadcasterInput}
@@ -122,7 +122,7 @@
 	<button
 		type="button"
 		class="inline-flex items-center px-3 rounded-r-md border-l-0 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800 umami--click--clip-reload-button"
-		on:click={loadData}><Fa icon={faRotate} class={loading ? 'animate-spin' : ''} /></button
+		on:click={loadData} aria-label="Reload clip search"><Fa icon={faRotate} class={loading ? 'animate-spin' : ''} /></button
 	>
 </div>
 <div class="flex flex-col flex-wrap content-center gap-2 pt-3 pb-3">
