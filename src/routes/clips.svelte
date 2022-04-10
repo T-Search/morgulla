@@ -11,7 +11,7 @@
 
 	const pageSize = 20;
 	const emptyMeta = { currentElements: 0, currentPage: 0, totalElements: 0, totalPages: 0, content: [] };
-	
+
 	let q = '';
 	let broadcaster = '';
 	let meta = emptyMeta;
@@ -38,6 +38,7 @@
 			if (browser) {
 				localStorage.setItem('q', q);
 				localStorage.setItem('broadcaster', broadcaster);
+				umami.trackEvent('Get Clips', 'load');
 			}
 			var url = new URL(baseApi + '/clip/search');
 			var params = { broadcaster: broadcaster, q: q, pageNumber: pageNumber, pageSize: pageSize };
@@ -71,7 +72,6 @@
 	const handleBroadcasterInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		broadcaster = e.target.value;
 		pageNumber = 0;
-		checkBroadcaster();
 		loadData();
 	}, 100);
 
@@ -119,12 +119,12 @@
 	/>
 	<button
 		type="button"
-		class="inline-flex items-center px-3 rounded-r-md border-l-0 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+		class="inline-flex items-center px-3 rounded-r-md border-l-0 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800 umami--click--clip-reload-button"
 		on:click={loadData}><Fa icon={faRotate} class={loading ? 'animate-spin' : ''} /></button
 	>
 </div>
 <div class="flex flex-col flex-wrap content-center gap-2 pt-3 pb-3">
-	{#each (meta.content) as clip}
+	{#each meta.content as clip}
 		<div class="max-w-3xl">
 			<Clip
 				id={clip.id}
@@ -155,13 +155,13 @@
 	<!-- Buttons -->
 	<div class="inline-flex mt-2 xs:mt-0">
 		<button
-			class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+			class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white umami--click--previous-page-button"
 			on:click={decrementPageNumber}
 		>
 			Prev
 		</button>
 		<button
-			class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-r border-0 border-l border-gray-700 hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+			class="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-r border-0 border-l border-gray-700 hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white umami--click--next-page-button"
 			on:click={incrementPageNumber}
 		>
 			Next
