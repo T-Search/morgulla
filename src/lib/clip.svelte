@@ -51,7 +51,7 @@
 		src={thumbnailUrl}
 		alt="Clip Thumbnail"
 	/>
-	<div class="flex flex-col justify-between p-4 leading-normal">
+	<div class="flex flex-col justify-between p-4 leading-normal w-full">
 		<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
 		<div
 			class="mb-3 font-normal text-gray-700 dark:text-gray-400 grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-x-4"
