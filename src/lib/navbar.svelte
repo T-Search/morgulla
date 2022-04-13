@@ -49,7 +49,7 @@
 			<ul class="flex flex-col items-center mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
 				<li>
 					<a
-						href="clips"
+						href="/clips"
 						class="block py-2 pr-4 pl-3 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent
             {activePageName == "clips" ? 'text-gray-200 dark:text-gray-600' : 'text-gray-700 dark:text-gray-400'}"
 						>Clips</a
@@ -57,7 +57,7 @@
 				</li>
 				<li>
 					<a
-						href="highlights"
+						href="/highlights"
 						class="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
             {activePageName == "highlights" ? 'text-gray-200 dark:text-gray-600' : 'text-gray-700 dark:text-gray-400'}"
 						>Highlights</a
@@ -65,14 +65,14 @@
 				</li>
 				<li>
 					<a
-						href="faq"
+						href="/faq"
 						class="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
             {activePageName == "faq" ? 'text-gray-200 dark:text-gray-600' : 'text-gray-700 dark:text-gray-400'}"
 						>FAQ</a
 					>
 				</li>
 				<li>
-					<a href="#" class="text-white bg-[#9147FF] hover:bg-[#9147FF]/90 focus:ring-4 focus:outline-none focus:ring-[#9147FF]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#9147FF]/50 dark:hover:bg-[#9147FF]/30">
+					<a href="https://id.twitch.tv/oauth2/authorize?response_type=code&client_id={import.meta.env.VITE_CLIENT_ID}&redirect_uri={import.meta.env.VITE_BACKEND_REDIRECT_URI}&scope=&force_verify=true" class="text-white bg-[#9147FF] hover:bg-[#9147FF]/90 focus:ring-4 focus:outline-none focus:ring-[#9147FF]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#9147FF]/50 dark:hover:bg-[#9147FF]/30">
 						<Fa icon={faTwitch} class="inline mr-2" />Sign in with Twitch
 					</a>
 				</li>
