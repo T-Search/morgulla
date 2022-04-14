@@ -3,6 +3,7 @@
 	import { faRotate } from '@fortawesome/free-solid-svg-icons/faRotate';
 	import debounce from 'lodash/debounce.js';
 	import Clip from '$lib/clip.svelte';
+	import Paginator from '$lib/paginator.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { browser } from '$app/env';
@@ -16,7 +17,6 @@
 	let meta = emptyMeta;
 	let foundBroadcaster = false;
 	let loading = true;
-	let pageNumber = 0;
 
 	let possibleBroadcaster = [];
 
@@ -28,10 +28,10 @@
 		const data = await res.json();
 		possibleBroadcaster = data.map((name) => name.toLowerCase());
 		checkBroadcaster();
-		loadData();
+		loadData(0);
 	});
 
-	async function loadData() {
+	async function loadData(pageNumber) {
 		loading = true;
 		if (foundBroadcaster) {
 			if (browser) {
@@ -42,7 +42,7 @@
 				}
 			}
 			var url = new URL(baseApi + '/clip/search');
-			var params = { broadcaster: broadcaster, q: q, pageNumber: pageNumber, pageSize: pageSize };
+			var params = { broadcaster: broadcaster, q: q, pageNumber, pageSize: pageSize };
 			url.search = new URLSearchParams(params).toString();
 
 			const res = await fetch(url);
@@ -65,30 +65,14 @@
 
 	const handleSearchInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		q = e.target.value;
-		pageNumber = 0;
-		loadData();
+		loadData(0);
 	}, 200);
 
 	const handleBroadcasterInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		broadcaster = e.target.value;
-		pageNumber = 0;
 		checkBroadcaster();
-		loadData();
+		loadData(0);
 	}, 100);
-
-	function incrementPageNumber() {
-		if (meta.totalPages - 1 > pageNumber) {
-			pageNumber += 1;
-			loadData();
-		}
-	}
-
-	function decrementPageNumber() {
-		if (0 < pageNumber) {
-			pageNumber -= 1;
-			loadData();
-		}
-	}
 </script>
 
 <svelte:head>
@@ -141,33 +125,5 @@
 		</div>
 	{/each}
 </div>
-<div class="flex flex-col items-center">
-	<!-- Help text -->
-	<span class="text-sm text-gray-700 dark:text-gray-400">
-		Showing <span class="font-semibold text-gray-900 dark:text-white"
-			>{Math.min(meta.currentPage * pageSize + 1, meta.totalElements)}</span
-		>
-		to
-		<span class="font-semibold text-gray-900 dark:text-white"
-			>{Math.min((1 + meta.currentPage) * pageSize, meta.totalElements)}</span
-		>
-		of <span class="font-semibold text-gray-900 dark:text-white">{meta.totalElements.toLocaleString()}</span> Entries
-	</span>
-	<!-- Buttons -->
-	<div class="inline-flex mt-2 xs:mt-0">
-		<button
-			class="py-2 px-4 text-sm font-medium rounded-l border text-center text-blue-700 hover:text-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 border-gray-300 hover:bg-blue-800 dark:hover:bg-gray-700 dark:hover:text-white disabled:text-gray-200 disabled:dark:text-gray-600 umami--click--previous-page-button"
-			on:click={decrementPageNumber}
-			disabled={pageNumber == 0}
-		>
-			Prev
-		</button>
-		<button
-			class="py-2 px-4 text-sm font-medium rounded-r border text-center text-blue-700 hover:text-white dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700 border-gray-300 hover:bg-blue-800 dark:hover:bg-gray-700 dark:hover:text-white disabled:text-gray-200 disabled:dark:text-gray-600 umami--click--next-page-button"
-			on:click={incrementPageNumber}
-			disabled={meta.totalPages - 1 == pageNumber}
-		>
-			Next
-		</button>
-	</div>
-</div>
+
+<Paginator page={meta.currentPage} pageSize={pageSize} totalElements={meta.totalElements} pageChange={(page) => loadData(page)}/>
