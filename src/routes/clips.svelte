@@ -151,7 +151,7 @@
 		<span class="font-semibold text-gray-900 dark:text-white"
 			>{Math.min((1 + meta.currentPage) * pageSize, meta.totalElements)}</span
 		>
-		of <span class="font-semibold text-gray-900 dark:text-white">{meta.totalElements}</span> Entries
+		of <span class="font-semibold text-gray-900 dark:text-white">{meta.totalElements.toLocaleString()}</span> Entries
 	</span>
 	<!-- Buttons -->
 	<div class="inline-flex mt-2 xs:mt-0">
