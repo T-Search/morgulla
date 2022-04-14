@@ -25,7 +25,7 @@
 		q = localStorage.getItem('q') || '';
 		broadcaster = localStorage.getItem('broadcaster') || '';
 		//Load broadcaster
-		const res = await fetch(baseApi + '/broadcaster/all');
+		const res = await fetch(baseApi + '/broadcaster/autocomplete');
 		const data = await res.json();
 		possibleBroadcaster = data.map((name) => name.toLowerCase());
 		checkBroadcaster();
