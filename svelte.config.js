@@ -18,8 +18,6 @@ if (rev.indexOf(':') === -1) {
 		.trim();
 }
 
-rev = rev.substring(0, 7);
-
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
