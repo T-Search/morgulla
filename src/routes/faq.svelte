@@ -21,9 +21,9 @@
             Mein Streamer ist nicht verfügbar.
         </h5>
         <p class="font-normal text-gray-700 dark:text-gray-400">
-            Das ganze Projekt befindet sich noch in einer sehr frühen Projektphase und kann deswegen nicht alle Streamer abbilden. <br />
-            Desweiteren wird es auch im späteren Zustand nicht möglich sein alle Streamer immer vollständig abzudecken. Aktuell kannst du nichts weiter machen als warten.<br />
-            Demnächst soll es für Streamer möglich sein sich mithilfe ihres Twitch Logins selbst auf der Webseite einzutragen.
+            Das ganze Projekt befindet sich noch in einer sehr frühen Projektphase und kann deswegen nicht alle Streamer abbilden.
+            Desweiteren wird es auch im späteren Zustand nicht möglich sein alle Streamer immer vollständig abzudecken. <br />
+            Du kannst dich mithilfe deines Twitch Accounts anmelden. Dann wird dein Stream im System hinterlegt.
         </p>
     </div>
     <div
