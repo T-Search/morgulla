@@ -49,7 +49,6 @@
 			const data = await res.json();
 			meta = data;
 			loading = false;
-			console.log(meta);
 		} else {
 			meta = emptyMeta;
 			loading = false;

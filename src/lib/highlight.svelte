@@ -35,7 +35,6 @@
 
 	let dateFormatted;
 	$: {
-		console.log(dateString);
 		dateFormatted = new Date(dateString).toLocaleDateString(locale, dateStringOptions);
 	}
 
