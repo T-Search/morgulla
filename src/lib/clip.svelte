@@ -21,7 +21,6 @@
 	import { faGamepad } from '@fortawesome/free-solid-svg-icons/faGamepad';
 	import { faSignal } from '@fortawesome/free-solid-svg-icons/faSignal';
 	import { faTv } from '@fortawesome/free-solid-svg-icons/faTv';
-	import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 	import { faUserGear } from '@fortawesome/free-solid-svg-icons/faUserGear';
 
 	export let id;

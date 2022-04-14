@@ -1,6 +1,5 @@
 <script>
 	import Fa from 'svelte-fa';
-	import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 	import { faRotate } from '@fortawesome/free-solid-svg-icons/faRotate';
 	import debounce from 'lodash/debounce.js';
 	import Clip from '$lib/clip.svelte';
