@@ -1,5 +1,5 @@
 <script>
-	import Fa from 'svelte-fa';
+	import Fa from 'svelte-fa/src/fa.svelte'
 	import { faRotate } from '@fortawesome/free-solid-svg-icons/faRotate';
 	import debounce from 'lodash/debounce.js';
 	import Highlight from '$lib/highlight.svelte';
