@@ -8,6 +8,7 @@
 	import { page } from '$app/stores';
 	import { browser } from '$app/env';
 	import { baseApi } from '$lib/baseApi';
+	import * as animateScroll from "svelte-scrollto";
 
 	const pageSize = 20;
 	const emptyMeta = { currentElements: 0, currentPage: 0, totalElements: 0, totalPages: 0, content: [] };
@@ -48,6 +49,7 @@
 			const res = await fetch(url);
 			const data = await res.json();
 			meta = data;
+			animateScroll.scrollToTop();
 			loading = false;
 		} else {
 			meta = emptyMeta;
