@@ -5,7 +5,6 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { browser } from '$app/env';
-	import { baseApi } from '$lib/baseApi';
 	import * as animateScroll from "svelte-scrollto";
 
 	const pageSize = 20;
@@ -23,7 +22,7 @@
 		q = localStorage.getItem('q') || '';
 		broadcaster = localStorage.getItem('broadcaster') || '';
 		//Load broadcaster
-		const res = await fetch(baseApi + '/broadcaster/autocomplete');
+		const res = await fetch(import.meta.env.VITE_API_BASE_URL + '/broadcaster/autocomplete');
 		const data = await res.json();
 		possibleBroadcaster = data.map((name) => name.toLowerCase());
 		checkBroadcaster();
@@ -40,7 +39,7 @@
 					umami.trackEvent('Get Highlights', 'load');
 				}
 			}
-			var url = new URL(baseApi + '/highlight/search');
+			var url = new URL(import.meta.env.VITE_API_BASE_URL + '/highlight/search');
 			var params = { broadcaster: broadcaster, q: q, pageNumber, pageSize: pageSize };
 			url.search = new URLSearchParams(params).toString();
 
