@@ -1,7 +1,5 @@
 <script>
 	import { page } from '$app/stores';
-		import Fa from 'svelte-fa';
-	import { faTwitch } from '@fortawesome/free-brands-svg-icons/faTwitch';
 
   $: activePageName = $page.routeId;
 </script>
@@ -73,7 +71,12 @@
 				</li>
 				<li>
 					<a href="https://id.twitch.tv/oauth2/authorize?response_type=code&client_id={import.meta.env.VITE_CLIENT_ID}&redirect_uri={import.meta.env.VITE_BACKEND_REDIRECT_URI}&scope=&force_verify=true" class="text-white bg-[#9147FF] hover:bg-[#9147FF]/90 focus:ring-4 focus:outline-none focus:ring-[#9147FF]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#9147FF]/50 dark:hover:bg-[#9147FF]/30">
-						<Fa icon={faTwitch} class="inline mr-2" />Sign in with Twitch
+						<svg class="h-5 mr-2" viewBox="0 0 256 268" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+							<g>
+								<path d="M17.4579119,0 L0,46.5559188 L0,232.757287 L63.9826001,232.757287 L63.9826001,267.690956 L98.9144853,267.690956 L133.811571,232.757287 L186.171922,232.757287 L256,162.954193 L256,0 L17.4579119,0 Z M40.7166868,23.2632364 L232.73141,23.2632364 L232.73141,151.29179 L191.992415,192.033461 L128,192.033461 L93.11273,226.918947 L93.11273,192.033461 L40.7166868,192.033461 L40.7166868,23.2632364 Z M104.724985,139.668381 L127.999822,139.668381 L127.999822,69.843872 L104.724985,69.843872 L104.724985,139.668381 Z M168.721862,139.668381 L191.992237,139.668381 L191.992237,69.843872 L168.721862,69.843872 L168.721862,139.668381 Z" fill="currentColor"></path>
+							</g>
+						</svg>
+						Sign in with Twitch
 					</a>
 				</li>
 			</ul>
