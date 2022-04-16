@@ -1,40 +1,50 @@
-# create-svelte
+# morgulla
+This is the frontend website project for [tsearch.tools](https://tsearch.tools).  
+The Svelte framework is used with the Svelte Kit framework.  
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Backend endpoints from [datava](https://github.com/tsearch/datava) and [lorva](https://github.com/tsearch/lorva) are used.
 
-## Creating a project
+## What is morgulla
+morgulla or tsearch.tools is a twitch search service. It can be used to search for clips or highlights for certian broadcasters.
+Twitch itself has no search for clips or highlights.  
+Did you ever try to get a 2 years old highlight from a active broadcasting streamer?  
+Current the search is limited title search.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Screenhots
+### Light theme - Desktop
+![Frontpage screenshot light theme](/gh-images/frontpage-desktop-light.png)
 
+### Dark theme - Desktop
+![Frontpage screenshot dark theme](/gh-images/frontpage-desktop-dark.png)
+
+## Run project
+To run the project, you need the project files first: 
 ```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
+git clone git@github.com:tsearch/morgulla.git
+```
+Then you need to install the dependenies with npm:
+```bash
+# npm install 
+npm ci
 ```
 
-> Note: the `@next` is temporary
+(Possibly download other projects for the backend endpoints)  
+(Possibly set ``.env.local`` file, see [Vite env modes](https://vitejs.dev/guide/env-and-mode.html#env-files))  
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
+Run dev server, listing on all ips:
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm run dev -- --open --host 0.0.0.0
 ```
 
-## Building
-
-To create a production version of your app:
-
+## Production build
+To build project as a production build, you need the execute this npm command:
 ```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+The builded files are now in ``build`` dir.
+To preview the build files:
+```bash
+npm run preview
+```
+You can now move the builded files anywhere...
