@@ -5,10 +5,16 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { browser } from '$app/env';
-	import * as animateScroll from "svelte-scrollto";
+	import * as animateScroll from 'svelte-scrollto';
 
 	const pageSize = 20;
-	const emptyMeta = { currentElements: 0, currentPage: 0, totalElements: 0, totalPages: 0, content: [] };
+	const emptyMeta = {
+		currentElements: 0,
+		currentPage: 0,
+		totalElements: 0,
+		totalPages: 0,
+		content: []
+	};
 
 	let q = '';
 	let broadcaster = '';
@@ -35,7 +41,7 @@
 			if (browser) {
 				localStorage.setItem('q', q);
 				localStorage.setItem('broadcaster', broadcaster);
-				if(typeof umami !== 'undefined') {
+				if (typeof umami !== 'undefined') {
 					umami.trackEvent('Get Clips', 'load');
 				}
 			}
@@ -104,12 +110,22 @@
 	<button
 		type="button"
 		class="inline-flex items-center px-3 rounded-r-md border-l-0 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800 umami--click--clip-reload-button"
-		on:click={loadData} aria-label="Reload clip search">
-			<svg xmlns="http://www.w3.org/2000/svg" class="inline h-5 w-5 -scale-100 {loading ? 'animate-spin' : ''}" viewBox="0 0 20 20" fill="currentColor">
-				<path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
-			</svg>
-		</button
+		on:click={loadData}
+		aria-label="Reload clip search"
 	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="inline h-5 w-5 -scale-100 {loading ? 'animate-spin' : ''}"
+			viewBox="0 0 20 20"
+			fill="currentColor"
+		>
+			<path
+				fill-rule="evenodd"
+				d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+				clip-rule="evenodd"
+			/>
+		</svg>
+	</button>
 </div>
 <div class="flex flex-col flex-wrap content-center gap-2 pt-3 pb-3">
 	{#each meta.content as clip}
@@ -129,4 +145,9 @@
 	{/each}
 </div>
 
-<Paginator page={meta.currentPage} pageSize={pageSize} totalElements={meta.totalElements} pageChange={(page) => loadData(page)}/>
+<Paginator
+	page={meta.currentPage}
+	{pageSize}
+	totalElements={meta.totalElements}
+	pageChange={(page) => loadData(page)}
+/>

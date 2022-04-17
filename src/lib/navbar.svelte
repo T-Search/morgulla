@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 
-  $: activePageName = $page.routeId;
+	$: activePageName = $page.routeId;
 </script>
 
 <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800 mb-3">
@@ -44,36 +44,56 @@
 			>
 		</button>
 		<div class="hidden w-full md:block md:w-auto" id="mobile-menu">
-			<ul class="flex flex-col items-center mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+			<ul
+				class="flex flex-col items-center mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium"
+			>
 				<li>
 					<a
 						href="/clips"
 						class="block py-2 pr-4 pl-3 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent
-            {activePageName == "clips" ? 'text-gray-200 dark:text-gray-600' : 'text-gray-700 dark:text-gray-400'}"
-						>Clips</a
+            {activePageName == 'clips'
+							? 'text-gray-200 dark:text-gray-600'
+							: 'text-gray-700 dark:text-gray-400'}">Clips</a
 					>
 				</li>
 				<li>
 					<a
 						href="/highlights"
 						class="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
-            {activePageName == "highlights" ? 'text-gray-200 dark:text-gray-600' : 'text-gray-700 dark:text-gray-400'}"
-						>Highlights</a
+            {activePageName == 'highlights'
+							? 'text-gray-200 dark:text-gray-600'
+							: 'text-gray-700 dark:text-gray-400'}">Highlights</a
 					>
 				</li>
 				<li>
 					<a
 						href="/faq"
 						class="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
-            {activePageName == "faq" ? 'text-gray-200 dark:text-gray-600' : 'text-gray-700 dark:text-gray-400'}"
-						>FAQ</a
+            {activePageName == 'faq'
+							? 'text-gray-200 dark:text-gray-600'
+							: 'text-gray-700 dark:text-gray-400'}">FAQ</a
 					>
 				</li>
 				<li>
-					<a href="https://id.twitch.tv/oauth2/authorize?response_type=code&client_id={import.meta.env.VITE_CLIENT_ID}&redirect_uri={import.meta.env.VITE_BACKEND_REDIRECT_URI}&scope=&force_verify=true" class="text-white bg-[#9147FF] hover:bg-[#9147FF]/90 focus:ring-4 focus:outline-none focus:ring-[#9147FF]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#9147FF]/50 dark:hover:bg-[#9147FF]/30">
-						<svg class="h-5 mr-2" viewBox="0 0 256 268" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+					<a
+						href="https://id.twitch.tv/oauth2/authorize?response_type=code&client_id={import.meta
+							.env.VITE_CLIENT_ID}&redirect_uri={import.meta.env
+							.VITE_BACKEND_REDIRECT_URI}&scope=&force_verify=true"
+						class="text-white bg-[#9147FF] hover:bg-[#9147FF]/90 focus:ring-4 focus:outline-none focus:ring-[#9147FF]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#9147FF]/50 dark:hover:bg-[#9147FF]/30"
+					>
+						<svg
+							class="h-5 mr-2"
+							viewBox="0 0 256 268"
+							version="1.1"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+							preserveAspectRatio="xMidYMid"
+						>
 							<g>
-								<path d="M17.4579119,0 L0,46.5559188 L0,232.757287 L63.9826001,232.757287 L63.9826001,267.690956 L98.9144853,267.690956 L133.811571,232.757287 L186.171922,232.757287 L256,162.954193 L256,0 L17.4579119,0 Z M40.7166868,23.2632364 L232.73141,23.2632364 L232.73141,151.29179 L191.992415,192.033461 L128,192.033461 L93.11273,226.918947 L93.11273,192.033461 L40.7166868,192.033461 L40.7166868,23.2632364 Z M104.724985,139.668381 L127.999822,139.668381 L127.999822,69.843872 L104.724985,69.843872 L104.724985,139.668381 Z M168.721862,139.668381 L191.992237,139.668381 L191.992237,69.843872 L168.721862,69.843872 L168.721862,139.668381 Z" fill="currentColor"></path>
+								<path
+									d="M17.4579119,0 L0,46.5559188 L0,232.757287 L63.9826001,232.757287 L63.9826001,267.690956 L98.9144853,267.690956 L133.811571,232.757287 L186.171922,232.757287 L256,162.954193 L256,0 L17.4579119,0 Z M40.7166868,23.2632364 L232.73141,23.2632364 L232.73141,151.29179 L191.992415,192.033461 L128,192.033461 L93.11273,226.918947 L93.11273,192.033461 L40.7166868,192.033461 L40.7166868,23.2632364 Z M104.724985,139.668381 L127.999822,139.668381 L127.999822,69.843872 L104.724985,69.843872 L104.724985,139.668381 Z M168.721862,139.668381 L191.992237,139.668381 L191.992237,69.843872 L168.721862,69.843872 L168.721862,139.668381 Z"
+									fill="currentColor"
+								/>
 							</g>
 						</svg>
 						Sign in with Twitch

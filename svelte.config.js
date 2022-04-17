@@ -1,7 +1,6 @@
 import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 
-
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { ChildProcess } from 'child_process';
