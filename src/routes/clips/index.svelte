@@ -71,7 +71,7 @@
 	const handleSearchInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		q = e.target.value;
 		loadData(0);
-	}, 200);
+	}, 100);
 
 	const handleBroadcasterInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		broadcaster = e.target.value;
