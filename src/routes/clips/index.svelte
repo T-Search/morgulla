@@ -23,6 +23,8 @@
 	let sortOrder = 'desc';
 	let sortProperty = 'views';
 	let creatorName = '';
+	let views = '0';
+	let viewComparingOperation = '>=';
 	let meta = emptyMeta;
 	let foundBroadcaster = false;
 	let loading = true;
@@ -33,6 +35,7 @@
 	$: {
 		console.log(sortOrder);
 		console.log(sortProperty);
+		console.log(viewComparingOperation);
 		loadData(0);
 	}
 
@@ -66,7 +69,9 @@
 				game: gameSearch,
 				sortOrder: sortOrder,
 				sortProperty: sortProperty,
-				creator: creatorName
+				creator: creatorName,
+				viewsOperator: viewComparingOperation,
+				views: views == null ? 0 : views
 			};
 			url.search = new URLSearchParams(params).toString();
 
@@ -88,6 +93,10 @@
 			foundBroadcaster = false;
 		}
 	}
+
+	const updateAfterDebounce = debounce(() => {
+		loadData(0);
+	}, 100);
 
 	const handleSearchInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		q = e.target.value;
@@ -202,6 +211,29 @@
 				<option value="date">Date</option>
 			</Select>
 		</div>
+		<!-- View count -->
+		<div class="flex justify-center w-full">
+			<label
+				for="viewCompare"
+				class="max-w-fit block flex-1 min-w-0 text-sm p-2.5 rounded-l-md text-blue-700 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 focus:ring-blue-300"
+				>Views</label
+			>
+			<Select
+				bind:value={viewComparingOperation}
+				selectClass="bg-gray-50 border border-gray-300 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+			>
+				<option value=">=">>=</option>
+				<option value="<=">&lt;=</option>
+			</Select>
+			<input
+				id="views"
+				type="number"
+				min="0"
+				class="max-w-fit rounded-r-md bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				bind:value={views}
+				on:input={updateAfterDebounce}
+			/>
+		</div>
 		<!-- Game -->
 		<div class="flex justify-center w-full">
 			<label
@@ -214,6 +246,7 @@
 				type="search"
 				class="w-9/12 max-w-lg rounded-r-md bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 				placeholder="Dead by Daylight"
+				bind:value={gameSearch}
 				on:input={handleGameInput}
 			/>
 		</div>
