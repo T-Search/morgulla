@@ -131,7 +131,7 @@
 		<button
 			type="button"
 			class="inline-flex items-center px-3 text-blue-700 hover:text-white border dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  text-center dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800 umami--click--clip-reload-button"
-			on:click={loadData}
+			on:click={() => loadData(meta.currentPage)}
 			aria-label="Reload clip search"
 		>
 			<svg
