@@ -28,7 +28,7 @@
 	let meta = emptyMeta;
 	let foundBroadcaster = false;
 	let loading = true;
-	let expandOptions = true;
+	let expandOptions = false;
 
 	let possibleBroadcaster = [];
 
