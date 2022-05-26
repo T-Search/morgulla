@@ -52,6 +52,7 @@
 
 	async function loadData(pageNumber) {
 		loading = true;
+		checkBroadcaster();
 		if (foundBroadcaster) {
 			if (browser) {
 				localStorage.setItem('q', q);
@@ -97,29 +98,6 @@
 	const updateAfterDebounce = debounce(() => {
 		loadData(0);
 	}, 100);
-
-	const handleSearchInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
-		q = e.target.value;
-		loadData(0);
-	}, 100);
-
-	const handleBroadcasterInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
-		broadcaster = e.target.value;
-		checkBroadcaster();
-		loadData(0);
-	}, 100);
-
-	const handleGameInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
-		gameSearch = e.target.value;
-		checkBroadcaster();
-		loadData(0);
-	}, 100);
-
-	const handleCreatorInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
-		creatorName = e.target.value;
-		checkBroadcaster();
-		loadData(0);
-	}, 100);
 </script>
 
 <svelte:head>
@@ -134,8 +112,8 @@
 				? 'border-green-500 text-green-900 focus:ring-green-500 focus:border-green-500 dark:bg-green-100 dark:border-green-400'
 				: 'border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500 dark:bg-red-100 dark:border-red-400'}"
 			placeholder="Broadcaster"
-			value={broadcaster}
-			on:input={handleBroadcasterInput}
+			bind:value={broadcaster}
+			on:input={updateAfterDebounce}
 			list="broadcaster-autocomplete"
 		/>
 		<datalist id="broadcaster-autocomplete">
@@ -147,8 +125,8 @@
 			type="search"
 			class="w-9/12 max-w-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 			placeholder="Bonnie Green"
-			value={q}
-			on:input={handleSearchInput}
+			bind:value={q}
+			on:input={updateAfterDebounce}
 		/>
 		<button
 			type="button"
@@ -247,7 +225,7 @@
 				class="w-9/12 max-w-lg rounded-r-md bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 				placeholder="Dead by Daylight"
 				bind:value={gameSearch}
-				on:input={handleGameInput}
+				on:input={updateAfterDebounce}
 			/>
 		</div>
 		<!-- Creator -->
@@ -262,7 +240,8 @@
 				type="search"
 				class="w-9/12 max-w-lg rounded-r-md bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 				placeholder="Dieter"
-				on:input={handleCreatorInput}
+				bind:value={creatorName}
+				on:input={updateAfterDebounce}
 			/>
 		</div>
 	{/if}
