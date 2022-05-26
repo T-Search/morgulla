@@ -22,10 +22,11 @@
 	let gameSearch = '';
 	let sortOrder = 'desc';
 	let sortProperty = 'views';
+	let creatorName = '';
 	let meta = emptyMeta;
 	let foundBroadcaster = false;
 	let loading = true;
-	let expandOptions = false;
+	let expandOptions = true;
 
 	let possibleBroadcaster = [];
 
@@ -64,7 +65,8 @@
 				pageSize: pageSize,
 				game: gameSearch,
 				sortOrder: sortOrder,
-				sortProperty: sortProperty
+				sortProperty: sortProperty,
+				creator: creatorName
 			};
 			url.search = new URLSearchParams(params).toString();
 
@@ -100,6 +102,12 @@
 
 	const handleGameInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
 		gameSearch = e.target.value;
+		checkBroadcaster();
+		loadData(0);
+	}, 100);
+
+	const handleCreatorInput = debounce((/** @type {{ target: { value: string; }; }} */ e) => {
+		creatorName = e.target.value;
 		checkBroadcaster();
 		loadData(0);
 	}, 100);
@@ -180,7 +188,7 @@
 			>
 			<Select
 				bind:value={sortOrder}
-				on:change={() => console.log("Test")}
+				on:change={() => console.log('Test')}
 				selectClass="bg-gray-50 border border-gray-300 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
 			>
 				<option value="asc">↑</option>
@@ -194,11 +202,12 @@
 				<option value="date">Date</option>
 			</Select>
 		</div>
+		<!-- Game -->
 		<div class="flex justify-center w-full">
 			<label
 				for="game"
-				class="max-w-fit block flex-1 min-w-0 text-sm p-2.5 rounded-l-md text-blue-700 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 focus:ring-blue-300"
-				>Game</label
+				class="block flex-1 min-w-0 text-sm p-2.5 rounded-l-md text-blue-700 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 focus:ring-blue-300"
+				style="max-width: 8rem;">Game</label
 			>
 			<input
 				id="game"
@@ -206,6 +215,21 @@
 				class="w-9/12 max-w-lg rounded-r-md bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 				placeholder="Dead by Daylight"
 				on:input={handleGameInput}
+			/>
+		</div>
+		<!-- Creator -->
+		<div class="flex justify-center w-full">
+			<label
+				for="creator"
+				class="block flex-1 text-sm p-2.5 rounded-l-md text-blue-700 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 border-gray-300 focus:ring-blue-300"
+				style="max-width: 8rem;">Creator Name</label
+			>
+			<input
+				id="creator"
+				type="search"
+				class="w-9/12 max-w-lg rounded-r-md bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				placeholder="Dieter"
+				on:input={handleCreatorInput}
 			/>
 		</div>
 	{/if}
