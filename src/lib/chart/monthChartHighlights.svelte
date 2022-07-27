@@ -12,7 +12,7 @@
 			plugins: {
 				title: {
 					display: true,
-					text: 'Clips pro Monat'
+					text: 'Highlights pro Monat'
 				}
 			},
 			responsive: true,
@@ -21,17 +21,7 @@
 					min: 0,
 					title: {
 						display: true,
-						text: 'Erstellte Clips'
-					}
-				},
-				y1: {
-					display: true,
-					position: 'right',
-
-					min: 0,
-					title: {
-						display: true,
-						text: 'Erstellte Clips in %'
+						text: 'Erstellte Highlights'
 					}
 				}
 			}
