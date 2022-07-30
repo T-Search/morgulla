@@ -1,12 +1,27 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
+	import {COLORS} from '$lib/chart/Util';
 	import Chart from 'chart.js/auto/auto.js';
 
+	import type {Dataset} from '$lib/chart/dataset';
+
+	export let chartTitle: string;
+	export let labels: string[];
+	export let dataset: Dataset;
+
 	let portfolio;
-	export let data;
 	const config = {
 		type: 'pie',
-		data: data,
+		data: {
+			labels: labels,
+			datasets: [
+				{
+					label: dataset.name,
+					data: dataset.data,
+					backgroundColor: COLORS
+				}
+			]
+		},
 		options: {
 			borderRadius: '10',
 			plugins: {
@@ -15,7 +30,7 @@
 				},
 				title: {
 					display: true,
-					text: 'Highlights pro Wochentag'
+					text: chartTitle
 				},
                 labels: {
                     render: 'value'
@@ -31,4 +46,6 @@
 	});
 </script>
 
-<canvas bind:this={portfolio} />
+<div class="aspect-video">
+	<canvas bind:this={portfolio} />
+</div>

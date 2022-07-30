@@ -8,7 +8,7 @@
 <div class="rounded-lg custom-bg-{color} text-center text-white">
 	<span class="font-bold text-2xl">{count.toLocaleString()}</span>
     {#if last30days != null}
-	<span class="inline-flex"
+	<span class="inline-flex" title="In den letzten 30 Tagen hinzugefügt"
 		>+ {last30days.toLocaleString()}
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
