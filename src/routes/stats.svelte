@@ -4,7 +4,19 @@
 	import LineChart from '$lib/chart/lineChart.svelte';
 	import PiChart from '$lib/chart/piChart.svelte';
 
-	const d = {
+	import { browser } from '$app/env';
+
+	export const locale = browser && (window.navigator.userLanguage || window.navigator.language);
+		export const dateStringOptions = {
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit',
+		year: '2-digit',
+		month: '2-digit',
+		day: '2-digit'
+	};
+
+		const d = {
 		boxStatistics: {
 			highlights: 4201,
 			highlightsLast30Days: 190,
@@ -176,3 +188,7 @@
 		<PiChart chartTitle="Erstelle Clips nach Spiel" labels={d.clipsPerGame.labels} dataset={d.clipsPerGame.datasets[0]} />
 	</div>
 </div>
+
+<span class="box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white px-2">
+  Berechnet am {new Date(d.calculatedAt).toLocaleDateString(locale, dateStringOptions)}
+</span>
