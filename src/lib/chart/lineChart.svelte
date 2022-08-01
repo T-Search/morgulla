@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { COLORS } from '$lib/chart/Util';
+	import { COLORS, percentageFormatter } from '$lib/chart/Util';
 	import Chart from 'chart.js/auto/auto.js';
+	import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 	import type { Dataset } from '$lib/chart/dataset';
 
@@ -12,6 +13,7 @@
 
 	let portfolio;
 	const config = {
+		plugins: [ChartDataLabels],
 		type: 'line',
 		data: {
 			labels: labels,
@@ -32,6 +34,11 @@
 				title: {
 					display: true,
 					text: chartTitle
+				},
+				datalabels: {
+					formatter: percentageFormatter,
+					color: '#000',
+					rotation: -75,
 				}
 			},
 			responsive: true,

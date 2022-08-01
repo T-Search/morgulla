@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import {COLORS} from '$lib/chart/Util';
-	import Chart from 'chart.js/auto/auto.js';
+	import { COLORS, percentageFormatter } from '$lib/chart/Util';
+	import Chart from 'chart.js/auto';
+	import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-	import type {Dataset} from '$lib/chart/dataset';
+	import type { Dataset } from '$lib/chart/dataset';
 
 	export let chartTitle: string;
 	export let labels: string[];
@@ -11,6 +12,7 @@
 
 	let portfolio;
 	const config = {
+		plugins: [ChartDataLabels],
 		type: 'pie',
 		data: {
 			labels: labels,
@@ -25,16 +27,15 @@
 		options: {
 			borderRadius: '10',
 			plugins: {
-				legend: {
-					position: 'top'
-				},
 				title: {
 					display: true,
 					text: chartTitle
 				},
-                labels: {
-                    render: 'value'
-                }
+				datalabels: {
+					formatter: percentageFormatter,
+					color: '#000',
+					display: 'auto',
+				}
 			},
 			responsive: true
 		}
