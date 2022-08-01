@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { browser } from '$app/env';
-	import { COLORS, percentageFormatter } from '$lib/chart/Util';
+	import { COLORS } from '$lib/chart/Util';
 	import Chart from 'chart.js/auto';
 	import ChartDataLabels from 'chartjs-plugin-datalabels';
 
@@ -34,7 +34,6 @@
 					text: chartTitle
 				},
 				datalabels: {
-					formatter: percentageFormatter,
 					color: '#000'
 				}
 			},
