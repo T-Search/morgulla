@@ -6,10 +6,9 @@
 
 	import { browser } from '$app/env';
 	import BroadcasterSearch from '$lib/broadcaster-search.svelte';
-	import { broadcasterStore } from '/src/stores/broadcasters';
+	import { broadcasterStore } from '$stores/broadcasters';
 	import { writable, type Writable } from 'svelte/store';
-	import type { StatisticData } from 'src/entity/StatisticData';
-	import { text } from 'svelte/internal';
+	import type { StatisticData } from '$entities/StatisticData';
 
 	export const locale = browser && (window.navigator['userLanguage'] || window.navigator.language);
 	export const dateStringOptions = {

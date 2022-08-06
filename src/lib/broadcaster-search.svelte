@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { broadcasterStore, allBroadcasterStore } from '/src/stores/broadcasters';
+	import { broadcasterStore, allBroadcasterStore } from '$stores/broadcasters';
 	import { writable } from 'svelte/store';
 	import { onMount } from 'svelte';
 
