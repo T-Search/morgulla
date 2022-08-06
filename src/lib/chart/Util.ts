@@ -1,14 +1,4 @@
-export const COLORS = [
-    '#4dc9f6',
-    '#f67019',
-    '#f53794',
-    '#537bc4',
-    '#acc236',
-    '#166a8f',
-    '#00a950',
-    '#58595b',
-    '#8549ba'
-];
+export const COLORS = ["#fd5da8", "#ff5800", "#dffe00", "#98ff98", "#42e0d1", "#007fff", "#9370db", "#613385", "#8b008b", '#c46210', '#e27c7c', '#e1a692'];
 
 export const percentageFormatter = (value, ctx) => {
     let sum = 0;
