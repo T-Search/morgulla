@@ -96,7 +96,7 @@
 								/>
 							</g>
 						</svg>
-						Sign in with Twitch
+						Anmelden mit Twitch
 					</a>
 				</li>
 			</ul>
