@@ -2,10 +2,12 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/env';
 	import { COLORS } from '$lib/chart/Util';
-	import { Chart } from 'chart.js/dist/chart.esm';
+	import { Chart, registerables } from 'chart.js/dist/chart.esm';
 	import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 	import type { Dataset } from '$lib/chart/dataset';
+
+	Chart.register(...registerables);
 
 	export let chartTitle: string;
 	export let yAxesName: string;
