@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import debounce from 'lodash/debounce.js';
 	import Clip from '$lib/clip.svelte';
 	import Paginator from '$lib/paginator.svelte';
@@ -62,17 +62,17 @@
 				}
 			}
 			var url = new URL(import.meta.env.VITE_API_BASE_URL + '/clip/search');
-			var params = {
+			var params: Record<string, string> = {
 				broadcaster: broadcaster,
 				q: q,
 				pageNumber,
-				pageSize: pageSize,
+				pageSize: pageSize.toString(),
 				game: gameSearch,
 				sortOrder: sortOrder,
 				sortProperty: sortProperty,
 				creator: creatorName,
 				viewsOperator: viewComparingOperation,
-				views: views == null ? 0 : views
+				views: views == null ? "0" : views.toString()
 			};
 			url.search = new URLSearchParams(params).toString();
 

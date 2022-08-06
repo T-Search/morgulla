@@ -1,7 +1,7 @@
-<script context="module">
+<script context="module" lang="ts">
 	import { browser } from '$app/env';
 
-	export const dateStringOptions = {
+	export const dateStringOptions: Intl.DateTimeFormatOptions = {
 		hour: '2-digit',
 		minute: '2-digit',
 		second: '2-digit',
