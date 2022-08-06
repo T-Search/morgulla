@@ -2,7 +2,7 @@
 	export let page = 0;
 	export let pageSize;
 	export let totalElements;
-	export let pageChange = () => {};
+	export let pageChange = (page) => {};
 
 	$: totalPages = Math.ceil(totalElements / pageSize);
 
