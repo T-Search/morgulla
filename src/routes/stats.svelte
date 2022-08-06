@@ -1,13 +1,18 @@
-<script>
+<script lang="ts">
 	import Box from '$lib/chart/box.svelte';
 	import BarChart from '$lib/chart/barChart.svelte';
 	import LineChart from '$lib/chart/lineChart.svelte';
 	import PiChart from '$lib/chart/piChart.svelte';
 
 	import { browser } from '$app/env';
+	import BroadcasterSearch from '$lib/broadcaster-search.svelte';
+	import { broadcasterStore } from '/src/stores/broadcasters';
+	import { writable, type Writable } from 'svelte/store';
+	import type { StatisticData } from 'src/entity/StatisticData';
+	import { text } from 'svelte/internal';
 
-	export const locale = browser && (window.navigator.userLanguage || window.navigator.language);
-		export const dateStringOptions = {
+	export const locale = browser && (window.navigator['userLanguage'] || window.navigator.language);
+	export const dateStringOptions = {
 		hour: '2-digit',
 		minute: '2-digit',
 		second: '2-digit',
@@ -16,87 +21,197 @@
 		day: '2-digit'
 	};
 
-		const d = {"boxStatistics":{"highlights":4213,"highlightsLast30Days":167,"clips":17309,"clipsLast30Days":225,"games":84},"highlightsPerMonth":{"labels":["August 2021","September 2021","Oktober 2021","November 2021","Dezember 2021","Januar 2022","Februar 2022","März 2022","April 2022","Mai 2022","Juni 2022","Juli 2022"],"datasets":[{"name":"Highlights","data":[70,110,109,140,195,248,245,250,318,292,207,202]}]},"highlightsPerWeekday":{"labels":["Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag"],"datasets":[{"name":"Highlights","data":[843,206,571,714,624,569,686]}]},"clipsPerMonth":{"labels":["August 2021","September 2021","Oktober 2021","November 2021","Dezember 2021","Januar 2022","Februar 2022","März 2022","April 2022","Mai 2022","Juni 2022","Juli 2022"],"datasets":[{"name":"Clips","data":[250,198,173,140,86,189,341,290,371,557,349,283]}]},"clipsPerHour":{"labels":["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],"datasets":[{"name":"Clips","data":[1881,1823,1563,1112,752,498,890,951,742,529,305,246,171,200,190,162,136,185,172,209,282,831,1576,1903]}]},"clipsPerGame":{"labels":["Dead by Daylight","Hunt: Showdown","Deathgarden: BLOODHARVEST","Far Cry 5","Unbekannt","Apex Legends","Phasmophobia","Sekiro: Shadows Die Twice","A Plague Tale: Innocence","Vampire: The Masquerade - Bloodhunt","75 andere Spiele"],"datasets":[{"name":"Spiele","data":[14768,1353,229,76,53,47,35,33,31,26,658]}]},"clipperPerCount":{"labels":["Gammalunatic","Sonnen_blume95","chainsawface","Icewoman","CrimsonFrost87","VanilleColax","1SaltySurvivor","Kahron","Leonie__________","Unbekannt","3834 andere Clipper"],"datasets":[{"name":"Clipper","data":[3826,981,578,328,233,191,173,159,152,149,10539]}]},"clipperPerViews":{"labels":["Gammalunatic","Icewoman","Simplyplayer","Lanzurada","CatNight","Unbekannt","Sonnen_blume95","Kahron","CrimsonFrost87","D4sW1ck","3834 andere Clipper"],"datasets":[{"name":"Clipper","data":[21268,15984,9395,4968,4258,3517,3210,3055,2968,2637,85960]}]},"calculatedAt":"2022-08-02T23:01:58.979977331Z"};
+	const dataStore: Writable<StatisticData | null> = writable(null);
+	const statusTextStore: Writable<LoadingStatus> = writable({ text: 'Lade Daten', error: false });
+
+	interface LoadingStatus {
+		text: string;
+		error: boolean;
+	}
+
+	broadcasterStore.subscribe(updateCharts);
+
+	function updateCharts() {
+		statusTextStore.set({ text: 'Lade Daten', error: false });
+		dataStore.set(null);
+		let data = $broadcasterStore;
+		if (data) {
+			fetch(import.meta.env.VITE_API_BASE_URL + '/stats/' + $broadcasterStore).then(
+				(res: Response) => {
+					if (res.ok) {
+						res.json().then((data) => {
+							dataStore.set(data);
+						});
+					} else {
+						statusTextStore.set({
+							text: 'Code ' + res.status + ' - ' + (res.statusText ? res.statusText : 'Unbekannt'),
+							error: true
+						});
+					}
+				}
+			);
+		}
+	}
 </script>
 
 <svelte:head>
 	<title>Statistiken</title>
 </svelte:head>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-	<Box
-		title="Highlights"
-		count={d.boxStatistics.highlights}
-		last30days={d.boxStatistics.highlightsLast30Days}
-		color="blue"
-	/>
-	<Box
-		title="Clips"
-		count={d.boxStatistics.clips}
-		last30days={d.boxStatistics.clipsLast30Days}
-		color="red"
-	/>
-	<Box title="gespielte Spiele" count={d.boxStatistics.games} color="green" />
+<div class="flex justify-center w-full pb-2">
+	<BroadcasterSearch />
 </div>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
-	<div class="col-span-1 md:col-span-3 text-4xl text-center bg-[#3c69e7] p-2 rounded-lg text-white">
-		<span>Highlights</span>
-	</div>
-	<div class="col-span-1 md:col-span-2">
-		<BarChart
-			chartTitle="Highlights pro Monat"
-			yAxesName="Erstelle Highlights"
-			labels={d.highlightsPerMonth.labels}
-			dataset={d.highlightsPerMonth.datasets[0]}
+{#if $dataStore}
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+		<Box
+			title="Highlights"
+			count={$dataStore.boxStatistics.highlights}
+			last30days={$dataStore.boxStatistics.highlightsLast30Days}
+			color="blue"
 		/>
-	</div>
-	<div class="col-span-1">
-		<PiChart
-			chartTitle="Highlights pro Wochentag"
-			labels={d.highlightsPerWeekday.labels}
-			dataset={d.highlightsPerWeekday.datasets[0]}
+		<Box
+			title="Clips"
+			count={$dataStore.boxStatistics.clips}
+			last30days={$dataStore.boxStatistics.clipsLast30Days}
+			color="red"
 		/>
+		<Box title="gespielte Spiele" count={$dataStore.boxStatistics.games} color="green" />
 	</div>
-</div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
-	<div class="col-span-1 md:col-span-3 text-4xl text-center bg-[#3c69e7] p-2 rounded-lg text-white">
-		<span>Clips</span>
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
+		<div
+			class="col-span-1 md:col-span-3 text-4xl text-center bg-[#3c69e7] p-2 rounded-lg text-white"
+		>
+			<span>Highlights</span>
+		</div>
+		<div class="col-span-1 md:col-span-2">
+			<BarChart
+				chartTitle="Highlights pro Monat"
+				yAxesName="Erstelle Highlights"
+				labels={$dataStore.highlightsPerMonth.labels}
+				dataset={$dataStore.highlightsPerMonth.datasets[0]}
+			/>
+		</div>
+		<div class="col-span-1">
+			<PiChart
+				chartTitle="Highlights pro Wochentag"
+				labels={$dataStore.highlightsPerWeekday.labels}
+				dataset={$dataStore.highlightsPerWeekday.datasets[0]}
+			/>
+		</div>
 	</div>
-	<div class="col-span-1">
-		<BarChart
-			chartTitle="Clips pro Monat"
-			yAxesName="Erstelle Clips"
-			labels={d.clipsPerMonth.labels}
-			dataset={d.clipsPerMonth.datasets[0]}
-		/>
-	</div>
-	<div class="col-span-1">
-		<LineChart
-			chartTitle="Clip Erstellung nach Uhrzeit"
-			yAxesName="Erstelle Clips"
-			labels={d.clipsPerHour.labels}
-			dataset={d.clipsPerHour.datasets[0]}
-		/>
-	</div>
-	<div class="col-span-1">
-		<PiChart chartTitle="Erstelle Clips nach Spiel" labels={d.clipsPerGame.labels} dataset={d.clipsPerGame.datasets[0]} />
-	</div>
-</div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-5">
-	<div class="col-span-1 md:col-span-2 text-4xl text-center bg-[#3c69e7] p-2 rounded-lg text-white">
-		<span>Clipper</span>
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
+		<div
+			class="col-span-1 md:col-span-3 text-4xl text-center bg-[#3c69e7] p-2 rounded-lg text-white"
+		>
+			<span>Clips</span>
+		</div>
+		<div class="col-span-1">
+			<BarChart
+				chartTitle="Clips pro Monat"
+				yAxesName="Erstelle Clips"
+				labels={$dataStore.clipsPerMonth.labels}
+				dataset={$dataStore.clipsPerMonth.datasets[0]}
+			/>
+		</div>
+		<div class="col-span-1">
+			<LineChart
+				chartTitle="Clip Erstellung nach Uhrzeit"
+				yAxesName="Erstelle Clips"
+				labels={$dataStore.clipsPerHour.labels}
+				dataset={$dataStore.clipsPerHour.datasets[0]}
+			/>
+		</div>
+		<div class="col-span-1">
+			<PiChart
+				chartTitle="Erstelle Clips nach Spiel"
+				labels={$dataStore.clipsPerGame.labels}
+				dataset={$dataStore.clipsPerGame.datasets[0]}
+			/>
+		</div>
 	</div>
-	<div class="col-span-1">
-		<PiChart chartTitle="Top Clipper durch Anzahl an Clips" labels={d.clipperPerCount.labels} dataset={d.clipperPerCount.datasets[0]} />
-	</div>
-	<div class="col-span-1">
-		<PiChart chartTitle="Top Clipper durch Views an Clips" labels={d.clipperPerViews.labels} dataset={d.clipperPerViews.datasets[0]} />
-	</div>
-</div>
 
-<span class="box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white px-2">
-  Berechnet am {new Date(d.calculatedAt).toLocaleDateString(locale, dateStringOptions)}
-</span>
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-5">
+		<div
+			class="col-span-1 md:col-span-2 text-4xl text-center bg-[#3c69e7] p-2 rounded-lg text-white"
+		>
+			<span>Clipper</span>
+		</div>
+		<div class="col-span-1">
+			<PiChart
+				chartTitle="Top Clipper durch Anzahl an Clips"
+				labels={$dataStore.clipperPerCount.labels}
+				dataset={$dataStore.clipperPerCount.datasets[0]}
+			/>
+		</div>
+		<div class="col-span-1">
+			<PiChart
+				chartTitle="Top Clipper durch Views an Clips"
+				labels={$dataStore.clipperPerViews.labels}
+				dataset={$dataStore.clipperPerViews.datasets[0]}
+			/>
+		</div>
+	</div>
+
+	<span class="box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white px-2">
+		Berechnet am {new Date($dataStore.calculatedAt).toLocaleDateString(locale, dateStringOptions)}
+	</span>
+{:else if !$statusTextStore.error}
+	<div class="flex justify-center w-full pb-2">
+		<!-- Loading Spinne from https://loading.io/css/ -->
+		<div class="lds-facebook">
+			<div />
+			<div />
+			<div />
+		</div>
+	</div>
+{:else if $statusTextStore.error}
+	<div class="flex justify-center w-full pb-2">
+		<div class="text-4xl text-center bg-red-700 p-2 rounded-lg text-white">
+			Fehler beim Laden der Daten<br />
+			{$statusTextStore.text}
+		</div>
+	</div>
+{/if}
+
+<style>
+	/* Loading Spinner */
+	.lds-facebook {
+		display: inline-block;
+		position: relative;
+		width: 80px;
+		height: 80px;
+	}
+	.lds-facebook div {
+		display: inline-block;
+		position: absolute;
+		left: 8px;
+		width: 16px;
+		background: #888;
+		animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+	}
+	.lds-facebook div:nth-child(1) {
+		left: 8px;
+		animation-delay: -0.24s;
+	}
+	.lds-facebook div:nth-child(2) {
+		left: 32px;
+		animation-delay: -0.12s;
+	}
+	.lds-facebook div:nth-child(3) {
+		left: 56px;
+		animation-delay: 0;
+	}
+	@keyframes lds-facebook {
+		0% {
+			top: 8px;
+			height: 64px;
+		}
+		50%,
+		100% {
+			top: 24px;
+			height: 32px;
+		}
+	}
+</style>
