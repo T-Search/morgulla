@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { COLORS, percentageFormatter } from '$lib/chart/Util';
-	import Chart from 'chart.js/auto';
+	import { Chart } from 'chart.js/dist/chart.esm';
 	import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 	import type { Dataset } from '$lib/chart/dataset';
