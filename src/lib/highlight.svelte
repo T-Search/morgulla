@@ -10,7 +10,7 @@
 		day: '2-digit'
 	};
 
-	export const locale = browser && (window.navigator.userLanguage || window.navigator.language);
+	export const locale = browser && (window.navigator['userLanguage'] || window.navigator.language);
 </script>
 
 <script>
