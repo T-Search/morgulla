@@ -4,6 +4,7 @@ import preprocess from 'svelte-preprocess';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { ChildProcess } from 'child_process';
+import path from "path";
 
 const file = fileURLToPath(new URL('package.json', import.meta.url));
 const json = readFileSync(file, 'utf8');
@@ -26,6 +27,11 @@ const config = {
 	kit: {
 		adapter: adapter({ out: 'build' }),
 		vite: {
+			resolve: {
+				alias: {
+					'$stores': path.resolve('./src/stores')
+				}
+			},
 			define: {
 				__APP_VERSION__: JSON.stringify(pkg.version),
 				__COMMIT_HASH__: JSON.stringify(rev)

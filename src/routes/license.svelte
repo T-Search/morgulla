@@ -19,3 +19,13 @@
 		</li>
 	</ul>
 </div>
+<h1
+	class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200 ml-2"
+>
+	Used Loading Spinner
+</h1>
+<ul class="list-disc ml-6">
+	<li>
+		From: <a href="https://loading.io/css/" class="hover:underline">loading.io </a>
+	</li>
+</ul>

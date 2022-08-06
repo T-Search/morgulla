@@ -52,7 +52,7 @@
 						href="/clips"
 						class="block py-2 pr-4 pl-3 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent
             {activePageName == 'clips'
-							? 'text-gray-200 dark:text-gray-600'
+							? 'text-gray-400 dark:text-gray-600'
 							: 'text-gray-700 dark:text-gray-400'}">Clips</a
 					>
 				</li>
@@ -61,7 +61,7 @@
 						href="/highlights"
 						class="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
             {activePageName == 'highlights'
-							? 'text-gray-200 dark:text-gray-600'
+							? 'text-gray-400 dark:text-gray-600'
 							: 'text-gray-700 dark:text-gray-400'}">Highlights</a
 					>
 				</li>
@@ -70,8 +70,17 @@
 						href="/faq"
 						class="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
             {activePageName == 'faq'
-							? 'text-gray-200 dark:text-gray-600'
+							? 'text-gray-400 dark:text-gray-600'
 							: 'text-gray-700 dark:text-gray-400'}">FAQ</a
+					>
+				</li>
+								<li>
+					<a
+						href="/stats"
+						class="block py-2 pr-4 pl-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700
+            {activePageName == 'stats'
+							? 'text-gray-400 dark:text-gray-600'
+							: 'text-gray-700 dark:text-gray-400'}">Statistiken</a
 					>
 				</li>
 				<li>
