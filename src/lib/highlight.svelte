@@ -1,7 +1,7 @@
-<script context="module">
+<script context="module" lang="ts">
 	import { browser } from '$app/env';
 
-	export const dateStringOptions = {
+	export const dateStringOptions: Intl.DateTimeFormatOptions = {
 		hour: '2-digit',
 		minute: '2-digit',
 		second: '2-digit',
@@ -10,7 +10,7 @@
 		day: '2-digit'
 	};
 
-	export const locale = browser && (window.navigator.userLanguage || window.navigator.language);
+	export const locale = browser && (window.navigator['userLanguage'] || window.navigator.language);
 </script>
 
 <script>
@@ -46,7 +46,7 @@
 		<div
 			class="mb-3 font-normal text-gray-700 dark:text-gray-400 grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-x-4 w-full"
 		>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="ID des Highlights">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -71,7 +71,7 @@
 				</svg>
 				{id}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Name des Streamers">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -84,7 +84,7 @@
 				</svg>
 				{broadcasterName}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Datum der Erstellung">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -99,7 +99,7 @@
 				</svg>
 				{dateFormatted}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Anzahl an Views">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -115,7 +115,7 @@
 				</svg>
 				{views.toLocaleString()}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Video Länge">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"

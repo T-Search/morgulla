@@ -1,7 +1,7 @@
-<script context="module">
+<script context="module" lang="ts">
 	import { browser } from '$app/env';
 
-	export const dateStringOptions = {
+	export const dateStringOptions: Intl.DateTimeFormatOptions = {
 		hour: '2-digit',
 		minute: '2-digit',
 		second: '2-digit',
@@ -10,7 +10,7 @@
 		day: '2-digit'
 	};
 
-	export const locale = browser && (window.navigator.userLanguage || window.navigator.language);
+	export const locale = browser && (window.navigator['userLanguage'] || window.navigator.language);
 </script>
 
 <script>
@@ -48,7 +48,7 @@
 		<div
 			class="mb-3 font-normal text-gray-700 dark:text-gray-400 grid grid-cols-1 md:grid-cols-2 grid-flow-row gap-x-4"
 		>
-			<div class="md:col-span-2 flex items-center gap-1">
+			<div class="md:col-span-2 flex items-center gap-1" title="ID des Clips">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -73,7 +73,7 @@
 				</svg>
 				{id}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Datum der Erstellung">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -88,7 +88,7 @@
 				</svg>
 				{clipDateFormatted}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Spiel des Clips">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -103,7 +103,7 @@
 				</svg>
 				{game}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Name des Streamers">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -116,7 +116,7 @@
 				</svg>
 				{broadcasterName}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Name des Clip Erstellers">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -129,7 +129,7 @@
 				</svg>
 				{creatorName}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Video Id aus dem der Clip erstellt wurde">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
@@ -146,7 +146,7 @@
 					<a href="https://www.twitch.tv/videos/{videoId}" target="_blank">{videoId}</a><br />
 				{/if}
 			</div>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1" title="Anzahl an Views">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="inline h-5 w-5"
